@@ -28,6 +28,11 @@ class CategoryRepository implements RepositoryInterface
         return $this->model->create($data);
     }
 
+    public function getAllWithChildren()
+    {
+        return $this->model->with('children')->whereNull('parent_id')->get();
+    }
+
     public function update($id, array $data)
     {
         $category = $this->model->find($id);
