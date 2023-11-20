@@ -18,6 +18,10 @@ class CategoryService
         return $this->categoryRepository->create(['name' => $name, 'parent_id' => $parentId]);
     }
 
+    public function findOneCategory($id){
+        return $this->categoryRepository->find($id);
+    }
+
     public function deleteCategory($id)
     {
         return $this->categoryRepository->delete($id);

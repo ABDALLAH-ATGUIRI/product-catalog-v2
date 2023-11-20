@@ -34,6 +34,13 @@ class DeleteCategory extends Command
             'id' => 'required|exists:categories,id',
         ]);
 
+        $category = $categoryService->findOneCategory($categoryId);
+
+        if (!$category) {
+            $this->error('Category not found.');
+            return;
+        }
+
         try {
             $validator->validate();
         } catch (ValidationException $e) {
