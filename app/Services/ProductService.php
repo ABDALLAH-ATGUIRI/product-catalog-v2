@@ -28,4 +28,14 @@ class ProductService
 
         return $product;
     }
+
+    public function findOneProduct($id)
+    {
+        return $this->productRepository->find($id);
+    }
+
+    public function deleteProduct($id)
+    {
+        return $this->productRepository->delete($id);
+    }
 }
