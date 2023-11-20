@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryService $categoryService, CategoryRequest $categoryRequest, string $id)
     {
-        return response()->json(['categories' => $categoryService->createCategory($id, [$categoryRequest->name, $categoryRequest->parentId])]);
+        return response()->json(['categories' => $categoryService->createCategory($id, $categoryRequest)]);
     }
 
     /**
