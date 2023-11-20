@@ -28,7 +28,7 @@ class CategoryRepository implements RepositoryInterface
         return $this->model->create($data);
     }
 
-    public function getAllWithChildren()
+    public function getAllGroupedByParent()
     {
         return $this->model->with('children')->whereNull('parent_id')->get();
     }

@@ -13,12 +13,23 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function createCategory($name, $parentId)
+    public function getAllCategories()
+    {
+        return $this->categoryRepository->getAllGroupedByParent();
+    }
+
+    public function createCategory($id, $data)
+    {
+        return $this->categoryRepository->update($id, $data);
+    }
+
+    public function updateCategory($name, $parentId)
     {
         return $this->categoryRepository->create(['name' => $name, 'parent_id' => $parentId]);
     }
 
-    public function findOneCategory($id){
+    public function findOneCategory($id)
+    {
         return $this->categoryRepository->find($id);
     }
 
