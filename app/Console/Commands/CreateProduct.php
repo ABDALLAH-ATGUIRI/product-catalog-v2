@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\ImageHelper;
 use Illuminate\Console\Command;
 use App\Services\ProductService;
 use Illuminate\Support\Facades\Validator;
@@ -29,12 +28,15 @@ class CreateProduct extends Command
      */
     public function handle(ProductService $productService)
     {
-        $name = $this->argument('name');
-        $description = $this->argument('description');
-        $price = $this->argument('price');
-        $image = ImageHelper::upload($this->option('image'));
-        $categoryIds = $this->option('categories');
-        $validator = Validator::make(['name' => $name, 'description' => $description, 'price' => $price, 'image' => $image, 'categories' => $categoryIds], [
+        $data = [
+            'name' => $this->argument('name'),
+            'description' => $this->argument('description'),
+            'price' => $this->argument('price'),
+            'image' => $this->option('image'),
+            'categories' => explode(',', $this->option('categories')[0]),
+        ];
+
+        $validator = Validator::make($data, [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
@@ -44,13 +46,13 @@ class CreateProduct extends Command
 
         try {
             $validator->validate();
+
+            $product = $productService->createProduct($data);
+
+            $this->info("Product created successfully! ID: {$product->id}");
         } catch (ValidationException $e) {
             $this->error("Validation failed: " . implode(' ', $validator->errors()->all()));
             return;
         }
-
-        $product = $productService->createProduct($name, $description, $price, $image, $categoryIds);
-
-        $this->info("Product created successfully! ID: {$product->id}");
     }
 }
