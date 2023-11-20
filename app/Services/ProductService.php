@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\CategoryRepository;
+use App\Helpers\ImageHelper;
 use App\Repositories\ProductRepository;
 
 class ProductService
@@ -14,17 +14,37 @@ class ProductService
         $this->productRepository = $productRepository;
     }
 
-    public function createProduct($name, $description, $price, $image, $categoryIds)
+    public function getAllProducts()
+    {
+        return $this->productRepository->getAll();
+    }
+
+    public function createProduct(array $request)
     {
         $data = [
-            'name' => $name,
-            'description' => $description,
-            'price' => $price,
-            'image' => $image,
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'price' => $request['price'],
+            'image' => ImageHelper::upload($request['image']),
         ];
 
         $product = $this->productRepository->create($data);
-        $product->categories()->attach(str_split($categoryIds[0]));
+        $product->categories()->attach($request['categories']);
+
+        return $product;
+    }
+
+    public function updateProduct(string $id, array $request)
+    {
+        $data = [
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'price' => $request['price'],
+            'image' => ImageHelper::upload($request['image']),
+        ];
+
+        $product = $this->productRepository->update($id, $data);
+        $product->categories()->sync($request['categories']);
 
         return $product;
     }
