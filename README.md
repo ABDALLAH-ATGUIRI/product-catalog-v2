@@ -1,66 +1,207 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Product Catalog
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
 
-## About Laravel
+Welcome to the Product Catalog! This repository hosts a simple and efficient system for managing and showcasing products. The project provides both a command-line interface (CLI) and a web interface, allowing users to interact seamlessly with product categories and listings.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. [Features](#features)
+2. [Technologies Used](#technologies-used)
+3. [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+4. [Usage](#usage)
+    - [Command Line Interface (CLI)](#command-line-interface-cli)
+    - [Web Interface](#web-interface)
+5. [Testing](#testing)
+6. [Folder Structure](#folder-structure)
+7. [Code Quality](#code-quality)
+8. [Contributing](#contributing)
+9. [License](#license)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+-   **Command Line Interface (CLI):**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    -   Create and delete product categories.
+    -   Create and delete products.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   **Web Interface:**
+    -   User-friendly web interface for creating and managing products.
+    -   Paginated product listing with sorting (by name or price) and category filtering.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Technologies Used
 
-## Laravel Sponsors
+-   **Backend:**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    -   Laravel (PHP)
+    -   MySQL
 
-### Premium Partners
+-   **Frontend:**
+    -   VueJs
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Getting Started
 
-## Contributing
+### Prerequisites
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+-   [PHP](https://www.php.net/) installed.
+-   [Composer](https://getcomposer.org/) for PHP dependency management.
+-   [Node.js](https://nodejs.org/) for JavaScript runtime.
+-   [Vue.js](https://vuejs.org/) globally installed.
 
-## Code of Conduct
+### Installation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. **Clone the repository:**
 
-## Security Vulnerabilities
+    ```bash
+    git clone https://github.com/ABDALLAH-ATGUIRI/Product-Catalog-Application.git
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. **Navigate to the project directory:**
 
-## License
+    ```bash
+    cd Product-Catalog-Application
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. **Install PHP dependencies:**
+
+    ```bash
+    cd composer install
+    ```
+
+4. **Install JavaScript dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+5. **Configure your database settings in the .env file.:**
+6. **Run migrations and seed the database:**
+
+    ```bash
+    php artisan migrate --seed
+    ```
+
+7. **Compile frontend assets:**
+
+    ```bash
+    npm run dev
+    ```
+
+## Usage
+
+## Testing
+Product creation can be covered by automated tests
+
+```bash
+php artisan test
+```
+
+### Command Line Interface (CLI)
+
+**Use the following commands to interact with the CLI:**
+
+```bash
+# Create a category
+php artisan category:create {name}
+
+# Delete a category
+
+php artisan category:delete {category id}
+
+# Create a product
+
+php artisan product:create {name} {description} {price} --image={'path of image'} --categories={'ids of categories'}
+
+# Delete a product
+
+php artisan product:delete{product id}
+
+# Run the tests
+
+php artisan test
+
+```
+
+### Web Interface
+
+1.  **Start the development server:**
+
+```bash
+    php artisan serve
+```
+
+2.  **Start the client server:**
+
+```bash
+    npm run dev
+```
+
+1.  **Open your browser and navigate to http://localhost:8000.**
+2.  **Use the web interface to create and manage products.**
+3.  **php artisan test.**
+
+### Folder Structure
+
+project/
+|-- app/
+| |-- Console/
+| | |-- Commands/
+| | | |-- CreateCategory.php
+| | | |-- CreateProduct.php
+| | | |-- DeleteCategory.php
+| | | |-- DeleteProduct.php
+| |
+| |-- Helpers/
+| | |-- ImageHelper.php
+| |
+| |-- Http/
+| | |-- Controllers/
+| | | |-- CategoryController.php
+| | | |-- ProductController.php
+| | |
+| | |-- Requests/
+| | | |-- CategoryRequest.php
+| | | |-- ProductRequest.php
+| | | |-- SearchRequest.php
+| |
+| |-- Services/
+| | |-- CategoryService.php
+| | |-- ProductService.php
+| |
+| |-- Repositories/
+| | |-- RepositoryInterface.php
+| | |-- CategoryRepository.php
+| | |-- ProductRepository.php
+|
+|-- config/
+| |-- your_package.php
+|
+|-- database/
+| |-- migrations/
+|
+|-- public/
+| |-- uploads/
+|
+|-- resources/
+| |-- views/
+|
+|-- routes/
+| |-- web.php
+|
+|-- tests/
+| |-- Feature
+| | |-- ProductServiceTest.php
+|-- .env
+|-- .gitignore
+|-- artisan
+|-- composer.json
+|-- phpunit.xml
+|-- README.md
+
+### Code Quality
+
+-   **Adhere to PSR coding standards.**
+-   **Follow DRY, KISS, YAGNI, and SOLID principles.**
+-   **Commit incrementally for a clean commit history.**
