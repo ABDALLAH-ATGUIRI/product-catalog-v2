@@ -18,14 +18,14 @@ class CategoryService
         return $this->categoryRepository->getAllGroupedByParent();
     }
 
-    public function createCategory($id, $data)
-    {
-        return $this->categoryRepository->update($id, $data);
-    }
-
-    public function updateCategory($name, $parentId)
+    public function createCategory($name, $parentId)
     {
         return $this->categoryRepository->create(['name' => $name, 'parent_id' => $parentId]);
+    }
+    
+    public function updateCategory($id, $data)
+    {
+        return $this->categoryRepository->update($id, $data);
     }
 
     public function findOneCategory($id)
