@@ -20,6 +20,6 @@ class ImageHelper
         }
 
         // Move the file to the storage path
-        return Storage::putFileAs('public/images', $imagePath, basename($imagePath));
+        return Storage::putFileAs('images', $imagePath, basename($imagePath));
     }
 }
