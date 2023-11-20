@@ -25,7 +25,11 @@ class ProductRepository implements RepositoryInterface
 
     public function create(array $data)
     {
-        return $this->model->create($data);
+        $product = $this->model->create($data);
+
+        $product->categories()->attach($data['categories']);
+
+        return $product;
     }
 
     public function update($id, array $data)
@@ -34,6 +38,7 @@ class ProductRepository implements RepositoryInterface
 
         if ($product) {
             $product->update($data);
+            $product->categories()->sync($data['categories']);
             return $product;
         }
 

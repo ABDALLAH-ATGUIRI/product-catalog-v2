@@ -21,32 +21,23 @@ class ProductService
 
     public function createProduct(array $request)
     {
-        $data = [
+        return $this->productRepository->create([
             'name' => $request['name'],
             'description' => $request['description'],
             'price' => $request['price'],
             'image' => ImageHelper::upload($request['image']),
-        ];
-
-        $product = $this->productRepository->create($data);
-        $product->categories()->attach($request['categories']);
-
-        return $product;
+            'categories' => $request['categories'],
+        ]);
     }
 
     public function updateProduct(string $id, array $request)
     {
-        $data = [
+        return $this->productRepository->update($id, [
             'name' => $request['name'],
             'description' => $request['description'],
             'price' => $request['price'],
             'image' => ImageHelper::upload($request['image']),
-        ];
-
-        $product = $this->productRepository->update($id, $data);
-        $product->categories()->sync($request['categories']);
-
-        return $product;
+        ]);
     }
 
     public function findOneProduct($id)
