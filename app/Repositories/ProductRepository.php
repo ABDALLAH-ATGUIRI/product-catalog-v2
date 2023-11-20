@@ -51,4 +51,23 @@ class ProductRepository implements RepositoryInterface
 
         return false;
     }
+
+    public function search($category, $priceMin, $priceMax, $productName)
+    {
+        return  $this->model->when($category, function ($query) use ($category) {
+            return $query->whereHas('categories', function ($query) use ($category) {
+                $query->where('id', $category);
+            });
+        })
+            ->when($priceMin, function ($query) use ($priceMin) {
+                return $query->where('price', '>=', $priceMin);
+            })
+            ->when($priceMax, function ($query) use ($priceMax) {
+                return $query->where('price', '<=', $priceMax);
+            })
+            ->when($productName, function ($query) use ($productName) {
+                return $query->where('name', 'like', '%' . $productName . '%');
+            })
+            ->get();
+    }
 }

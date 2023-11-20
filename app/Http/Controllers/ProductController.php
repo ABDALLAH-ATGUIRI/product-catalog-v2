@@ -52,5 +52,6 @@ class ProductController extends Controller
      */
     public function search(ProductService $productService, $request)
     {
+        return response()->json(['products' => $productService->searchProducts($request)]);
     }
 }
