@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\SearchRequest;
 use App\Services\ProductService;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
@@ -12,7 +14,7 @@ class ProductController extends Controller
      */
     public function index(ProductService $productService)
     {
-        return response()->json(['products' => $productService->getAllProducts()]);
+        return Inertia::render('Products/Index', ['products' => $productService->getAllProducts()]);
     }
 
     /**
@@ -50,8 +52,8 @@ class ProductController extends Controller
     /**
      * Search specified product.
      */
-    public function search(ProductService $productService, $request)
+    public function search(ProductService $productService, SearchRequest $request)
     {
-        return response()->json(['products' => $productService->searchProducts($request)]);
+        return response()->json(['products' => $productService->searchProducts($request->validated())]);
     }
 }
