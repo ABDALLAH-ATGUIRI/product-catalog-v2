@@ -52,12 +52,6 @@ class ProductService
 
     public function searchProducts(array $request)
     {
-        // Retrieve filter parameters from the request
-        $category = $request['category'];
-        $priceMin = $request['price_min'];
-        $priceMax = $request['price_max'];
-        $productName = $request['name'];
-
-        return $this->productRepository->search($category, $priceMin, $priceMax, $productName);
+        return $this->productRepository->search($request);
     }
 }

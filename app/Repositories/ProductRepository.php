@@ -15,7 +15,7 @@ class ProductRepository implements RepositoryInterface
 
     public function getAll()
     {
-        return $this->model->all();
+        return $this->model->paginate(10);
     }
 
     public function find($id)
@@ -57,11 +57,17 @@ class ProductRepository implements RepositoryInterface
         return false;
     }
 
-    public function search($category, $priceMin, $priceMax, $productName)
+    public function search(array $data)
     {
-        return  $this->model->when($category, function ($query) use ($category) {
+        $category = isset($data['category']) ? $data['category'] : null;
+        $productName = isset($data['product_name']) ? $data['product_name'] : null;
+        $priceMax = isset($data['price_max']) ? $data['price_max'] : null;
+        $priceMin = isset($data['price_min']) ? $data['price_min'] : null;
+        $currentPage = isset($data['current_page']) ? $data['current_page'] : null;
+
+        return $this->model->when($category, function ($query) use ($category) {
             return $query->whereHas('categories', function ($query) use ($category) {
-                $query->where('id', $category);
+                $query->where('categories.id', $category);
             });
         })
             ->when($priceMin, function ($query) use ($priceMin) {
@@ -73,6 +79,6 @@ class ProductRepository implements RepositoryInterface
             ->when($productName, function ($query) use ($productName) {
                 return $query->where('name', 'like', '%' . $productName . '%');
             })
-            ->get();
+            ->paginate(10, ['*'], 'page', $currentPage);
     }
 }
