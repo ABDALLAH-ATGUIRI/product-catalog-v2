@@ -1,7 +1,7 @@
 <template lang="">
     <div id="app">
         <div class="filter-bar">
-            <select v-model="filterForm.category" @change="searchProducts">
+            <select v-model="searchTerm.category" @change="search">
                 <template v-for="category in categories">
                     <optgroup :label="category.name">
                         <template v-for="subCategory in category.children">
@@ -14,37 +14,38 @@
             </select>
 
             <input
-                v-model="filterForm.productName"
+                v-model="searchTerm.product_name"
                 type="text"
                 placeholder="Product Name"
-                @change="searchProducts"
+                @change="search"
             />
 
             <input
-                v-model.number="filterForm.price_min"
+                v-model.number="searchTerm.price_min"
                 placeholder="Min Price"
                 type="number"
                 id="minPrice"
                 min="0"
-                @change="searchProducts"
+                @change="search"
             />
             <input
-                v-model.number="filterForm.price_max"
+                v-model.number="searchTerm.price_max"
                 placeholder="Max Price"
                 type="number"
                 id="maxPrice"
                 min="0"
-                @change="searchProducts"
+                @change="search"
             />
         </div>
     </div>
 </template>
 <script setup>
 import axios from "axios";
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 
+const emit = defineEmits();
 const categories = ref([]);
-const filterForm = ref({
+const searchTerm = ref({
     category: null,
     price_min: null,
     price_max: null,
@@ -62,16 +63,10 @@ onMounted(() => {
         });
 });
 
-const searchProducts = computed(() => {
-    axios
-        .post(`/api/product/search`, filterForm.value)
-        .then((data) => {
-            console.log(data);
-        })
-        .catch((error) => {
-            console.error("Error fetching products:", error);
-        });
-});
+const search = (e) => {
+    e.preventDefault();
+    emit("search", searchTerm.value);
+};
 </script>
 
 <style scoped>

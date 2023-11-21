@@ -1,9 +1,9 @@
 <template>
     <main role="main">
-        <search-bar></search-bar>
+        <search-bar @search="handleSearch"></search-bar>
         <div v-if="products.total > 0" class="catalog">
             <div v-for="item in products.data" :key="item">
-                <product-card :info="item"></product-card>
+                <product-card :product="item"></product-card>
             </div>
         </div>
         <div v-else class="empty-data">
@@ -13,20 +13,36 @@
             :total="products.total"
             :current_page="products.current_page"
             :last_page="products.last_page"
+            @pageChange="handlePageChange"
         ></pagination-bar>
     </main>
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
+import axios from "axios";
 import ProductCard from "../../components/ProductCard.vue";
 import SearchBar from "../../components/SearchBar.vue";
 import PaginationBar from "../../components/PaginationBar.vue";
 
-const props = defineProps({
-    products: {
-        type: Array,
-    },
+const products = ref({});
+
+const handleSearch = (searchTerm) => {
+    axios
+        .post(`/api/product/search`, searchTerm)
+        .then((response) => {
+            Object.assign(products.value, response.data.products);
+            console.log(response.data.products);
+        })
+        .catch((error) => {
+            console.error("Error fetching products:", error);
+        });
+};
+
+onMounted(() => {
+    handleSearch();
 });
+const handlePageChange = (pageNumber) => {};
 </script>
 
 <style scoped>
