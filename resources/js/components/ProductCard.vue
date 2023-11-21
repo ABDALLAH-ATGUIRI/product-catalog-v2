@@ -2,24 +2,24 @@
     <div class="product">
         <figure>
             <img
-                :src="`http://127.0.0.1:8000/storage/${info.image}`"
+                :src="`http://127.0.0.1:8000/storage/${product.image}`"
                 alt="Product Image"
                 class="product-image"
             />
         </figure>
         <div class="product-description">
             <div class="info">
-                <h1>{{ info.name }}</h1>
-                <p>{{ info.description }}</p>
+                <h1>{{ product.name }}</h1>
+                <p>{{ product.description }}</p>
             </div>
 
-            <div class="price">{{ info.price }}<br />DH</div>
+            <div class="price">{{ product.price }}<br />DH</div>
         </div>
     </div>
 </template>
 
 <script setup>
-const props = defineProps({ info: { type: Array, required: true } });
+const props = defineProps({ product: { type: Object, required: true } });
 </script>
 
 <style lang="css" scoped>
@@ -73,7 +73,7 @@ figure {
 .price {
     width: 30%;
     float: left;
-    color:rgb(9, 73, 126);
+    color: rgb(9, 73, 126);
     font-size: 1.5em;
     position: relative;
     text-align: center;
