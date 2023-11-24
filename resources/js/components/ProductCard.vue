@@ -1,19 +1,55 @@
 <template>
-    <div class="product">
-        <figure>
+    <div
+        class="relative flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md"
+    >
+        <a
+            class="relative mt-3 flex h-60 overflow-hidden rounded-xl mx"
+            href="#"
+        >
             <img
+                class="object-cover bg-center w-full"
                 :src="`http://127.0.0.1:8000/storage/${product.image}`"
-                alt="Product Image"
-                class="product-image"
+                alt="product image"
             />
-        </figure>
-        <div class="product-description">
-            <div class="info">
-                <h1>{{ product.name }}</h1>
+            <span
+                class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white"
+                >39% OFF</span
+            >
+        </a>
+        <div class="px-5 pb-5">
+            <a href="#">
+                <h5 class="text-xl tracking-tight text-slate-900">
+                    {{ product.name }}
+                </h5>
+            </a>
+            <div class="text-xl">
                 <p>{{ product.description }}</p>
             </div>
-
-            <div class="price">{{ product.price }}<br />DH</div>
+            <div class="mt-2 mb-5 flex items-center justify-between">
+                <span class="text-3xl font-bold text-slate-900"
+                    >{{ product.price }} DH</span
+                >
+            </div>
+            <a
+                href="#"
+                class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="mr-2 h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                </svg>
+                Add to cart</a
+            >
         </div>
     </div>
 </template>
@@ -21,62 +57,3 @@
 <script setup>
 const props = defineProps({ product: { type: Object, required: true } });
 </script>
-
-<style lang="css" scoped>
-/* Titles */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: 400;
-    color: #31353d;
-    margin: 0;
-}
-img {
-    max-width: 100%;
-    height: 300px;
-}
-figure {
-    margin: 0;
-    line-height: 0;
-}
-.product {
-    background: #fff;
-    max-width: 300px;
-    position: relative;
-    z-index: 15;
-    margin: 0 auto;
-    border: #9bb6aa 2px solid;
-}
-.product-description {
-    width: 100%;
-    position: relative;
-    z-index: 15;
-    background: #fff;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-.info {
-    width: 70%;
-    padding: 15px;
-    color: #aaa;
-    font-size: 0.8em;
-}
-
-.info > p {
-    font-size: 18px;
-    margin: 0;
-}
-.price {
-    width: 30%;
-    float: left;
-    color: rgb(9, 73, 126);
-    font-size: 1.5em;
-    position: relative;
-    text-align: center;
-    font-weight: 600;
-}
-</style>
