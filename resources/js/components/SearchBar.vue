@@ -1,6 +1,6 @@
 <template lang="">
     <div id="app">
-        <div class="filter-bar">
+        <div class="flex flex-col p-4 gap-6">
             <select v-model="searchTerm.category" @change="search">
                 <template v-for="category in categories">
                     <optgroup :label="category.name">

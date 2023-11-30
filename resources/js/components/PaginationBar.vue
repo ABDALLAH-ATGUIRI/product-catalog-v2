@@ -1,100 +1,79 @@
 <template>
-    <div class="container">
-        <!-- Pagination controls -->
-        <ul class="pagination">
-            <li class="icon">
-                <button @click="prevPage">Previous</button>
-            </li>
-            <li v-for="i in last_page" :key="i">
-                <button :class="current_page == i ? 'bg-yellow' : 'bg-gray'">
-                    {{ i }}
-                </button>
-            </li>
-            <li class="icon">
-                <button @click="nextPage">Next</button>
-            </li>
-        </ul>
+    <div
+        class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
+    >
+        <div class="flex flex-1 justify-between sm:hidden">
+            <a
+                href="#"
+                class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                >Previous</a
+            >
+            <a
+                href="#"
+                class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                >Next</a
+            >
+        </div>
+        <div
+            class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between"
+        >
+            <div>
+                <p class="text-sm text-gray-700">
+                    Showing
+                    {{ " " }}
+                    <span class="font-medium">{{ current_page }}</span>
+                    {{ " " }}
+                    to
+                    {{ " " }}
+                    <span class="font-medium">{{ current_page * 10 }}</span>
+                    {{ " " }}
+                    of
+                    {{ " " }}
+                    <span class="font-medium">{{ total }}</span>
+                    {{ " " }}
+                    results
+                </p>
+            </div>
+            <div>
+                <nav
+                    class="isolate inline-flex -space-x-px rounded-md shadow-sm"
+                    aria-label="Pagination"
+                >
+                    <a
+                        href="#"
+                        class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                    >
+                        <span class="sr-only">Previous</span>
+                        <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
+                    </a>
+                    <!-- Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" -->
+                    <a
+                        v-for="(item, index) in last_page"
+                        :key="index"
+                        href="#"
+                        :class="`relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold focus:z-20 ${
+                            current_page == item
+                                ? 'text-white bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 '
+                                : ' text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50  focus:outline-offset-0'
+                        }`"
+                        >{{ item }}</a
+                    >
+
+                    <a
+                        href="#"
+                        class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                    >
+                        <span class="sr-only">Next</span>
+                        <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
+                    </a>
+                </nav>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/20/solid";
 
-const props = defineProps({
-    total: { type: Number },
-    current_page: { type: Number },
-    last_page: { type: Number },
-});
-const currentPage = ref(1);
-
-const totalPages = computed(() =>
-    Math.ceil(props.items.length / props.itemsPerPage)
-);
-
-const nextPage = () => {
-    if (currentPage.value < totalPages.value) {
-        currentPage.value++;
-    }
-};
-
-const prevPage = () => {
-    if (currentPage.value > 1) {
-        currentPage.value--;
-    }
-};
+const props = defineProps(["total", "current_page", "last_page"]);
 </script>
-
-<style scoped>
-.container {
-    padding: 50px;
-}
-.pagination {
-    margin: 25px 0 15px 0;
-}
-.pagination,
-.pagination li button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-.pagination li {
-    background: #a8a8a8;
-    list-style: none;
-}
-.pagination li button {
-    text-decoration: none;
-    height: 50px;
-    width: 50px;
-    font-size: 18px;
-    padding-top: 1px;
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    border-right-width: 0px;
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.35);
-}
-.pagination li:last-child button {
-    border-right-width: 1px;
-}
-.pagination li button:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-top-color: rgba(0, 0, 0, 0.35);
-    border-bottom-color: rgba(0, 0, 0, 0.5);
-}
-.pagination li button:focus,
-.pagination li button:active {
-    padding-top: 4px;
-    border-left-width: 1px;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: inset 0px 2px 1px 0px rgba(0, 0, 0, 0.25);
-}
-.pagination li.icon button {
-    min-width: 120px;
-}
-.pagination li:first-child span {
-    padding-right: 8px;
-}
-
-.bg-yellow{
-    background-color: bisque;
-}
-</style>
