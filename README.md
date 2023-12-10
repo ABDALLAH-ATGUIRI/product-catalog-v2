@@ -77,13 +77,20 @@ Welcome to the Product Catalog! This repository hosts a simple and efficient sys
     ```
 
 5. **Configure your database settings in the .env file.:**
-6. **Run migrations and seed the database:**
+6. Database setup:   
+   1. Go to [Phpmyadmin](http://phpmyadmin.peach)
+   2. Go to SQL tab
+   3. Copy / paste the following query then execute it.
+       ```mysql
+       CREATE DATABASE calls CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+       ``` 
+7. **Run migrations and seed the database:**
 
     ```bash
     php artisan migrate --seed
     ```
 
-7. **Compile frontend assets:**
+8. **Compile frontend assets:**
 
     ```bash
     npm run dev
