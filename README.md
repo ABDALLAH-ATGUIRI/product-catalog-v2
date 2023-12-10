@@ -82,7 +82,7 @@ Welcome to the Product Catalog! This repository hosts a simple and efficient sys
    2. Go to SQL tab
    3. Copy / paste the following query then execute it.
        ```mysql
-       CREATE DATABASE products-catalog HARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+       CREATE DATABASE products_catalog HARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
        ``` 
 7. **Run migrations and seed the database:**
 
